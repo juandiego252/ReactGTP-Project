@@ -6,3 +6,4 @@ export * from './orthography/OrthographyPage';
 export * from './pros-cons/ProsConsPage';
 export * from './pros-cons-stream/ProsConsStreamPage';
 export * from './translate/TranslatePage';
+export * from './pros-cons-stream/ProsConsStreamPage';
