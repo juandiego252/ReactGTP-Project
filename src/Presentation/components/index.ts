@@ -2,6 +2,7 @@ export * from './chat-bubbles/GptMessages';
 export * from './chat-bubbles/MyMessage';
 export * from './chat-bubbles/GptOrthograpyMessage';
 export * from './chat-bubbles/GptMessageAudio';
+export * from './chat-bubbles/GptMessageImage';
 
 export * from './loaders/TypingLoader';
 export * from './sidebar/SideBarMenuItem';
