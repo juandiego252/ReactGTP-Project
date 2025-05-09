@@ -11,3 +11,4 @@ export * from './sidebar/SideBarMenuItem';
 export * from './chat-input-boxes/TextMessageBox';
 export * from './chat-input-boxes/TextMessageBoxFile';
 export * from './chat-input-boxes/TextMessageBoxSelect';
+export * from './chat-input-boxes/TextMessageBoxFileSelect';
