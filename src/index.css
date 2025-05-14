@@ -8,9 +8,10 @@ html,
 body {
     background-color: #000000;
     color: white;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Space Mono', monospace;
 
 }
+
 h1 {
     @apply text-3xl font-bold mb-4;
 }
@@ -29,14 +30,6 @@ strong {
 
 em {
     @apply italic text-pink-500;
-}
-
-.btn-primary {
-    @apply bg-indigo-500 text-white font-bold py-2 px-4 rounded-xl hover:bg-indigo-700 transition-all duration-200 ease-in-out;
-}
-
-.btn-primary:disabled {
-    @apply bg-indigo-500 text-white font-bold py-2 px-4 rounded-xl opacity-50 cursor-not-allowed;
 }
 
 .chat-container {
@@ -100,6 +93,13 @@ em {
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
 
+}
+
+::selection {
+    background-color: rgba(75, 75, 75, 0.6);
+    /* Color de fondo oscuro semitransparente */
+    color: white;
+    /* Color de texto al seleccionar */
 }
 
 :root {
@@ -174,12 +174,13 @@ em {
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+    * {
+        @apply border-border outline-ring/50;
 
     }
-  body {
-    @apply bg-background text-foreground;
+
+    body {
+        @apply bg-background text-foreground;
 
     }
 

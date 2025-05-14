@@ -24,7 +24,7 @@ export const SideBarMenuItem = ({ description, icon, title, to }: Props) => {
 
             </div>
             <div className="flex flex-col flex-grow">
-                <span className={`text-lg ${isActive ? "text-white font-semibold" : "text-white"}`}>
+                <span className={`text-lg ${isActive ? "text-[#c2ff0d]" : "text-white"}`}>
                     {title}
                 </span>
                 <span className="text-gray-300 text-sm">

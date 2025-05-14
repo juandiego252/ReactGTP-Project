@@ -1,16 +1,16 @@
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Send, Globe, Lightbulb, RotateCcw, Target } from "lucide-react";
 import { FormEvent, useState } from "react";
 
 interface Props {
     onSendMessage: (message: string) => void;
     placeholder: string;
-    disableCorrections?: boolean;
 }
 
-
-export const TextMessageBox = ({ onSendMessage, placeholder, disableCorrections = false }: Props) => {
+export const TextMessageBox = ({ onSendMessage, placeholder }: Props) => {
 
     const [message, setMessage] = useState("");
-
 
     const handleSendMessage = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -20,32 +20,59 @@ export const TextMessageBox = ({ onSendMessage, placeholder, disableCorrections 
     };
 
     return (
-        <form
-            onSubmit={handleSendMessage}
-            className="flex flex-row items-center h-16 rounded-xl bg-white w-full px-4"
-        >
-            <div className="flex-grow">
-                <div className="relative w-full">
-                    <input
-                        type="text"
-                        autoFocus
-                        name="message"
-                        className="flex w-full border rounded-xl text-gray-800 focus:outline-none focus:border-blue-500  pl-4 h-10  "
-                        placeholder={placeholder}
-                        autoComplete={disableCorrections ? "on" : "off"}
-                        autoCorrect={disableCorrections ? "on" : "off"}
-                        spellCheck={disableCorrections ? true : false}
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
-                    />
+        <div className="flex flex-col w-full">
+            <form
+                onSubmit={handleSendMessage}
+                className="rounded-xl bg-[#1e1e1e] w-full p-2"
+            >
+                {/* Combined input field and tools */}
+                <div className="flex flex-col">
+                    {/* Input field and send button */}
+                    <div className="flex flex-row items-center">
+                        <div className="flex-grow">
+                            <div className="relative w-full">
+                                <Input
+                                    type="text"
+                                    autoFocus
+                                    name="message"
+                                    className="flex w-full rounded-md bg-transparent pl-4 h-10 border-none focus:ring-0 focus:outline-none selection:bg-gray-700 selection:text-gray-200"
+                                    placeholder={placeholder}
+                                    autoComplete="off"
+                                    autoCorrect="off"
+                                    spellCheck={false}
+                                    value={message}
+                                    onChange={(e) => setMessage(e.target.value)}
+                                />
+                            </div>
+                        </div>
+                        <div className="ml-2">
+                            <Button type="button" className="rounded-full p-2 h-10 w-10 bg-transparent hover:bg-[#414141]">
+                                <Send size={20} color="#c2ff0d" />
+                            </Button>
+                        </div>
+                    </div>
+
+                    {/* Tools bar */}
+                    {/* <div className="flex flex-row gap-1 items-center mt-1">
+                        <Button type="button" className="rounded-full p-2 h-8 w-8 bg-transparent hover:bg-[#414141]">
+                            <span className="text-lg">+</span>
+                        </Button>
+                        <Button type="button" className="rounded-full p-2 h-8 w-8 bg-transparent hover:bg-[#414141]">
+                            <Globe size={16} />
+                        </Button>
+                        <Button type="button" className="rounded-full p-2 h-8 w-8 bg-transparent hover:bg-[#414141]">
+                            <Lightbulb size={16} />
+                        </Button>
+                        <Button type="button" className="rounded-full p-2 h-8 w-8 bg-transparent hover:bg-[#414141]">
+                            <RotateCcw size={16} />
+                        </Button>
+                        <Button type="button" className="rounded-full p-2 h-8 w-8 bg-transparent hover:bg-[#414141]">
+                            <Target size={16} />
+                        </Button>
+                    </div> */}
                 </div>
-            </div>
-            <div className="ml-4">
-                <button className="btn-primary">
-                    <span className="mr-2">Enviar</span>
-                    <i className="fa-regular fa-paper-plane"></i>
-                </button>
-            </div>
-        </form>
+            </form>
+        </div>
     )
 }
+
