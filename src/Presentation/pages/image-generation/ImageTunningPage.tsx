@@ -3,16 +3,16 @@ import { GptMessages, MyMessage, TypingLoader, TextMessageBoxFileSelect, GptMess
 import { ImageStudiosCase } from "../../../Core/use-cases";
 
 const studios = [
-  { id: "1", text: "Studio Ghibli" },
-  { id: "2", text: "Toei Animation" },
-  { id: "3", text: "MAPPA" },
-  { id: "4", text: "Madhouse" },
-  { id: "5", text: "Pixar Animation Studios" },
-  { id: "6", text: "Walt Disney Animation Studios" },
-  { id: "7", text: "Illumination" },
-  { id: "8", text: "Family Guy" },
-  { id: "9", text: "The Simpsons" },
-  { id: "10", text: "DreamWorks Animation" },
+  { id: "studio ghibli", text: "Studio Ghibli" },
+  { id: "toei animation", text: "Toei Animation" },
+  { id: "mappa", text: "MAPPA" },
+  { id: "madhouse", text: "Madhouse" },
+  { id: "pixar animation studios", text: "Pixar Animation Studios" },
+  { id: "walt disney animation studios", text: "Walt Disney Animation Studios" },
+  { id: "illumination", text: "Illumination" },
+  { id: "family guy", text: "Family Guy" },
+  { id: "the simpsons", text: "The Simpsons" },
+  { id: "dreamWorks animation", text: "DreamWorks Animation" },
 ]
 
 interface Message {
