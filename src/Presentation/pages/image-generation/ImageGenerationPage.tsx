@@ -2,6 +2,7 @@ import { useState } from "react";
 import { GptMessages, MyMessage, TypingLoader, TextMessageBox, GptMessageImage } from "../../components";
 import { ImageGenerationUseCase } from "../../../Core/use-cases";
 
+
 interface Message {
   text: string;
   isGpt: boolean;
@@ -50,7 +51,16 @@ export const ImageGenerationPage = () => {
           <GptMessages text="Hola, dime que tipo de imagen quieres generar?" />
           {
             messages.map((messages, index) => (
-              messages.isGpt ? (<GptMessageImage key={index} imageUrl={messages.info?.imageUrl!} alt={messages.info?.alt!} text={messages.text} />) : (<MyMessage key={index} text={messages.text} />)
+              messages.isGpt ? (
+                <GptMessageImage key={index}
+                  imageUrl={messages.info?.imageUrl!}
+                  alt={messages.info?.alt!}
+                // text={messages.text} 
+                />
+              ) : (
+                <MyMessage
+                  key={index}
+                  text={messages.text} />)
             ))
           }
           {
@@ -66,7 +76,6 @@ export const ImageGenerationPage = () => {
       <TextMessageBox
         onSendMessage={handlePost}
         placeholder="Escribe tu texto aquí"
-        disableCorrections={true}
       />
 
     </div>

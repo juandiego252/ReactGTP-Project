@@ -6,6 +6,7 @@ import { audioToTextUseCase } from "../../../Core/use-cases";
 interface Message {
   text: string;
   isGpt: boolean;
+  audioFileName?: string;
 }
 
 export const AudioToTextPage = () => {
@@ -15,7 +16,13 @@ export const AudioToTextPage = () => {
 
   const handlePost = async (text: string, audioFile: File) => {
     setIsLoading(true);
-    setMessages((prev) => [...prev, { text: text, isGpt: false }]);
+    setMessages((prev) => [...prev,
+    {
+      text: text || 'Transcribe el audio',
+      isGpt: false,
+      audioFileName: audioFile.name
+    }
+    ]);
 
     // Todo Use case
     const response = await audioToTextUseCase(audioFile, text);
@@ -23,14 +30,13 @@ export const AudioToTextPage = () => {
 
     if (!response) return;
     const gptMessage = `
-## Transcripción de audio a texto:
+## Transcripción de audio a texto
 **Duración:** ${Math.round(response.duration)} segundos
 
 ## Texto:
 ${response.text}
 `;
     setMessages((prev) => [...prev, { text: gptMessage, isGpt: true }])
-    // Todo Añádor el mensaje de isGpt en true
   };
 
 
@@ -42,7 +48,14 @@ ${response.text}
           <GptMessages text="Hola, sube tu audio y comenzare a convertirlo en texto" />
           {
             messages.map((messages, index) => (
-              messages.isGpt ? (<GptMessages key={index} text={messages.text} />) : (<MyMessage key={index} text={messages.text ? '' : 'Transcribe el audio'} />)
+              messages.isGpt ? (
+                <GptMessages key={index} text={messages.text} />
+              ) : (
+                <MyMessage
+                  key={index}
+                  text={messages.text || 'Transcribe el audio'}
+                  audioFileName={messages.audioFileName}
+                />)
             ))
           }
           {

@@ -47,27 +47,6 @@ export const menuRoutes = [
         description: "Información del asistente",
         component: <AssistantPage />
     },
-    // {
-    //     to: "/pros-cons",
-    //     icon: "fa-solid fa-code-compare",
-    //     title: "Pros & Cons",
-    //     description: "Comparar pros y contras",
-    //     component: <ProsConsPage />
-    // },
-    // {
-    //     to: "/pros-cons-stream",
-    //     icon: "fa-solid fa-water",
-    //     title: "Como stream",
-    //     description: "Con stream de mensajes",
-    //     component: <ProsConsStreamPage />
-    // },
-    // {
-    //     to: "/translate",
-    //     icon: "fa-solid fa-language",
-    //     title: "Traducir",
-    //     description: "Textos a otros idiomas",
-    //     component: <TranslatePage />
-    // },
 ];
 
 export const router = createBrowserRouter([

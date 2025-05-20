@@ -72,25 +72,7 @@ export const OrthographyPage = () => {
       <TextMessageBox
         onSendMessage={handlePost}
         placeholder="Escribe tu texto aquí"
-        disableCorrections={true}
       />
-      {/* <TextMessageBoxFile
-        onSendMessage={handlePost}
-        placeholder="Escribe tu texto aquí"
-      /> */}
-
-      {/* <TextMessageBoxSelect
-        options={[
-          { id: "1", text: "Opción 1" },
-          { id: "2", text: "Opción 2" },
-          { id: "3", text: "Opción 3" },
-          { id: "4", text: "Opción 4" },
-          { id: "5", text: "Opción 5" },
-
-        ]}
-        onSendMessage={console.log}
-      /> */}
-
     </div>
   )
 }

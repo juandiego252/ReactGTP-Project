@@ -1,6 +1,9 @@
 import { Outlet } from "react-router-dom";
 import { menuRoutes } from "../router/router";
 import { SideBarMenuItem } from "../components";
+import { RocketIcon } from "lucide-react";
+import GitHub from "@/assets/icons/GitHub";
+import LinkedIn from "@/assets/icons/LikedIn";
 
 
 export const DashboardLayout = () => {
@@ -12,13 +15,43 @@ export const DashboardLayout = () => {
         </h1>
         <span className="text-xl">Bienvenido</span>
 
-        <div className="border-gray-700 border my-3" />
+        <div className="border-neutral-500 border my-3" />
         {/* Opciones del menú */}
         {
-          menuRoutes.map(option => (
-            <SideBarMenuItem key={option.to} {...option} />
-          ))
+          <div className="space-y-2">
+            {menuRoutes.map(option => (
+              <SideBarMenuItem key={option.to} {...option} />
+            ))}
+          </div>
         }
+        <div className="border-2 border-[#c2ff0d] rounded-lg p-4 mt-12 flex flex-col items-center gap-2">
+          <span className="text-sm font-medium text-center">
+            Nuevas funcionalidades en desarrollo!
+          </span>
+          <RocketIcon size={50} className="text-[#c2ff0d]" />
+        </div>
+
+        {/* Contact icons section */}
+        <div className="mt-auto pt-5 flex justify-center gap-4">
+          <a
+            href="https://github.com/juandiego252/ReactGTP-Project.git"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub Repository"
+            className="p-2"
+          >
+            <GitHub fontSize={25} className="text-white/80 hover:text-white" />
+          </a>
+          <a
+            href="https://linkedin.com/in/devjuandiego"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn Profile"
+            className="p-2"
+          >
+            <LinkedIn fontSize={25} className="text-white/80 hover:text-white" />
+          </a>
+        </div>
       </nav>
 
       <section className="mx-3 sm:mx-20 flex flex-col w-full h-[calc(100vh-50px)] bg-white/10 p-5 rounded-3xl">
