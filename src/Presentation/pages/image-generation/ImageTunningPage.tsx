@@ -88,7 +88,6 @@ export const ImageTunningPage = () => {
         accept="image/*"
         onSendMessage={handlePost}
         options={studios}
-
       />
 
     </div>

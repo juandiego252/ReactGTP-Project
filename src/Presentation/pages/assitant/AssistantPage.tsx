@@ -90,7 +90,6 @@ export const AssistantPage = () => {
       <TextMessageBox
         onSendMessage={handlePost}
         placeholder="Escribe tu texto aquí"
-        disableCorrections={true}
       />
 
     </div>
