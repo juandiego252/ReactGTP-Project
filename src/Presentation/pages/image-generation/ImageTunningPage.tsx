@@ -5,14 +5,8 @@ import { ImageStudiosCase } from "../../../Core/use-cases";
 const studios = [
   { id: "studio ghibli", text: "Studio Ghibli" },
   { id: "toei animation", text: "Toei Animation" },
-  { id: "mappa", text: "MAPPA" },
-  { id: "madhouse", text: "Madhouse" },
-  { id: "pixar animation studios", text: "Pixar Animation Studios" },
-  { id: "walt disney animation studios", text: "Walt Disney Animation Studios" },
-  { id: "illumination", text: "Illumination" },
-  { id: "family guy", text: "Family Guy" },
   { id: "the simpsons", text: "The Simpsons" },
-  { id: "dreamWorks animation", text: "DreamWorks Animation" },
+  { id: "pixel art", text: "PixelArt" },
 ]
 
 interface Message {

@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GptMessages, GptOrthograpyMessage, MyMessage, TextMessageBox, TypingLoader } from "../../components";
 import { orthographyUseCase } from "../../../Core/use-cases";
+import { useChatContext } from "@/context/ChatProvider";
+import { useLocation } from "react-router-dom";
 
 
 interface Message {
@@ -15,8 +17,23 @@ interface Message {
 
 export const OrthographyPage = () => {
 
+  const location = useLocation();
+  const { getConversation, setConversation } = useChatContext();
   const [isloading, setIsLoading] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>(() => getConversation(location.pathname));
+
+
+  // Cargar conversación al montar el componente
+  useEffect(() => {
+    const savedMessages = getConversation(location.pathname);
+    setMessages(savedMessages);
+  }, [location.pathname]);
+
+  // Guardar conversación cada vez que cambian los mensajes
+  useEffect(() => {
+    setConversation(location.pathname, messages)
+  }, [messages, location.pathname]);
+
 
   const handlePost = async (text: string) => {
     setIsLoading(true);
@@ -37,7 +54,6 @@ export const OrthographyPage = () => {
       }]);
     }
     setIsLoading(false);
-    // Todo Añádor el mensaje de isGpt en true
   };
 
 
@@ -48,15 +64,19 @@ export const OrthographyPage = () => {
           {/* Bienvenida */}
           <GptMessages text="Hola, escribe tu texto en español y comenzaré con las correcciones." />
           {
-            messages.map((messages, index) => (
-              messages.isGpt ? (
-                <GptOrthograpyMessage
-                  key={index}
-                  errors={messages.info!.errors}
-                  message={messages.info!.message}
-                  useScore={messages.info!.userScore}
-                />
-              ) : (<MyMessage key={index} text={messages.text} />)
+            messages.map((message, index) => (
+              message.isGpt ? (
+                message.info ? (
+                  <GptOrthograpyMessage
+                    key={index}
+                    errors={message.info.errors}
+                    message={message.info.message}
+                    useScore={message.info.userScore}
+                  />
+                ) : (
+                  <GptMessages key={index} text={message.text} />
+                )
+              ) : (<MyMessage key={index} text={message.text} />)
             ))
           }
           {

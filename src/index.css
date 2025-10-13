@@ -185,3 +185,51 @@ em {
     }
 
 }
+.chat-container {
+    @apply flex flex-col flex-auto flex-shrink-0 rounded-2xl bg-white/5 h-full p-2 sm:p-4;
+}
+
+.chat-messages {
+    @apply flex flex-col h-full overflow-x-hidden mb-2 sm:mb-4 overflow-y-auto;
+}
+/* Agregar la clase personalizada */
+.chat-messages::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+    background: rgba(194, 255, 13, 0.3);
+    border-radius: 3px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+    background: rgba(194, 255, 13, 0.5);
+}
+
+/* Scrollbar personalizado */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(194, 255, 13, 0.3);
+    border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(194, 255, 13, 0.5);
+}
+
+/* Firefox */
+.custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(194, 255, 13, 0.3) transparent;
+}
