@@ -24,7 +24,7 @@ export const ImageStudiosCase = async (imageFile: File, studio: string): Promise
         const data = await response.json() as ImageStudioResponse;
         console.log({ data });
         return {
-            url: data.url,
+            url: data.azureUrl,
             alt: data.fileName,
         };
     } catch (error) {

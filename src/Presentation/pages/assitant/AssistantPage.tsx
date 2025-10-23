@@ -27,11 +27,11 @@ export const AssistantPage = () => {
     }
   }, []);
 
-  useEffect(() => {
-    if (threadId) {
-      setMessages((prev) => [...prev, { text: `Número de thread ${threadId}`, isGpt: true }]);
-    }
-  }, [threadId])
+  // useEffect(() => {
+  //   if (threadId) {
+  //     setMessages((prev) => [...prev, { text: `Número de thread ${threadId}`, isGpt: true }]);
+  //   }
+  // }, [threadId])
 
   const handlePost = async (text: string) => {
     if (!threadId) return;
@@ -43,15 +43,28 @@ export const AssistantPage = () => {
       const replies = await postQuestionUseCase(threadId, text);
 
       // Only add assistant messages (not user messages) from the replies
-      for (const reply of replies) {
-        if (reply.role === 'assistant') {
-          for (const messageContent of reply.content) {
-            setMessages((prev) => [...prev, {
-              text: messageContent,
-              isGpt: true,
-              info: reply
-            }]);
-          }
+      // for (const reply of replies) {
+      //   if (reply.role === 'assistant') {
+      //     for (const messageContent of reply.content) {
+      //       setMessages((prev) => [...prev, {
+      //         text: messageContent,
+      //         isGpt: true,
+      //         info: reply
+      //       }]);
+      //     }
+      //   }
+      // }
+      const lastAssistantMessage = replies
+        .filter(reply => reply.role === 'assistant')
+        .pop();
+
+      if (lastAssistantMessage) {
+        for (const messageContent of lastAssistantMessage.content) {
+          setMessages((prev) => [...prev, {
+            text: messageContent,
+            isGpt: true,
+            info: lastAssistantMessage
+          }]);
         }
       }
     } catch (error) {
@@ -71,7 +84,7 @@ export const AssistantPage = () => {
       <div className="chat-messages">
         <div className="grid grid-cols-12 gap-y-2">
           {/* Bienvenida */}
-          <GptMessages text="Hola, soy Moni en que puedo ayudarte ? " />
+          <GptMessages text="Hola, soy Moni tu asistente para obtener información sobre tramites del registro civil ecuatoriano." />
           {
             messages.map((messages, index) => (
               messages.isGpt ? (<GptMessages key={index} text={messages.text} />) : (<MyMessage key={index} text={messages.text} />)

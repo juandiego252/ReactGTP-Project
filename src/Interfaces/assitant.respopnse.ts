@@ -1,4 +1,7 @@
 export interface QuestionResponse {
-    role: string;
-    content: string[];
+    message: {
+        role: string,
+        content: string;
+    };
+    threadId: string
 }

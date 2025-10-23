@@ -1,6 +1,6 @@
 export interface ImageStudioResponse {
-    ok:       boolean;
-    url:      string;
+    ok: boolean;
+    azureUrl: string;
     fileName: string;
-    studio:   string;
+    studio: string;
 }
