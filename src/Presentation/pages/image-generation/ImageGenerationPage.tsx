@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GptMessages, MyMessage, TypingLoader, TextMessageBox, GptMessageImage } from "../../components";
 import { ImageGenerationUseCase } from "../../../Core/use-cases";
+import { useChatContext } from "@/context/ChatProvider";
 
 
 interface Message {
@@ -16,6 +17,21 @@ export const ImageGenerationPage = () => {
 
   const [isloading, setIsLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
+  const { getConversation, setConversation } = useChatContext();
+  const conversationKey = 'image-generation';
+
+  useEffect(() => {
+    const savedMessage = getConversation(conversationKey);
+    if (savedMessage && savedMessage.length) {
+      setMessages(savedMessage as Message[]);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (messages.length) {
+      setConversation(conversationKey, messages);
+    }
+  }, [messages]);
 
   const handlePost = async (text: string) => {
     setIsLoading(true);

@@ -21,11 +21,13 @@ export const ImageGenerationUseCase = async (prompt: string, originalImage?: str
             })
         });
 
-        const { url, revised_prompt: alt } = await response.json();
-        console.log({ url, alt });
-        return { url, alt };
+        const data = await response.json();
+        return {
+            url: data.azureUlr,
+            alt: data.revised_prompt
+
+        };
     } catch (error) {
-        console.log(error);
         return null;
     }
 }

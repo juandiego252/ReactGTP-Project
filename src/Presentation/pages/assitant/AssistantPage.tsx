@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { GptMessages, MyMessage, TypingLoader, TextMessageBox } from "../../components";
 import { createThreadUseCase, postQuestionUseCase } from "../../../Core/use-cases";
+import { useChatContext } from "@/context/ChatProvider";
 
 
 interface Message {
@@ -13,6 +14,21 @@ export const AssistantPage = () => {
   const [isloading, setIsLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [threadId, setThreadId] = useState<string>();
+  const { getConversation, setConversation } = useChatContext();
+  const conversationKey = 'sam-assitant';
+
+  useEffect(() => {
+    const savedMessage = getConversation(conversationKey);
+    if (savedMessage && savedMessage.length) {
+      setMessages(savedMessage as Message[]);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (messages.length) {
+      setConversation(conversationKey, messages);
+    }
+  }, [messages]);
 
   // Obtener el thread y si no existe crear uno nuevo
   useEffect(() => {

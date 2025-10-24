@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GptMessages, MyMessage, TypingLoader, TextMessageBoxFileSelect, GptMessageImage } from "../../components";
 import { ImageStudiosCase } from "../../../Core/use-cases";
+import { useChatContext } from "@/context/ChatProvider";
 
 const studios = [
   { id: "studio ghibli", text: "Studio Ghibli" },
@@ -10,7 +11,7 @@ const studios = [
 ]
 
 interface Message {
-  text?: string;
+  text: string;
   isGpt: boolean;
   info?: {
     imageUrl: string;
@@ -22,6 +23,21 @@ export const ImageTunningPage = () => {
 
   const [isloading, setIsLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
+  const { getConversation, setConversation } = useChatContext();
+  const conversationKey = 'image-studios';
+
+  useEffect(() => {
+    const savedMessage = getConversation(conversationKey);
+    if (savedMessage && savedMessage.length) {
+      setMessages(savedMessage as Message[]);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (messages.length) {
+      setConversation(conversationKey, messages);
+    }
+  }, [messages]);
 
   const handlePost = async (studioId: string, imageFile: File) => {
     setIsLoading(true);

@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GptMessages, MyMessage, TypingLoader, TextMessageBoxSelect, GptMessageAudio } from "../../components";
 import { textToAudioUseCase } from "../../../Core/use-cases";
+import { useChatContext } from "@/context/ChatProvider";
 
 const disclaimer = "El audio que estas escuchando es generado por inteligencia artificial. No corresponde a una voz humana real.";
 
@@ -36,7 +37,22 @@ type Message = TextMessage | AudioMessage;
 export const TextToAudioPage = () => {
 
   const [isloading, setIsLoading] = useState(false);
+  const { getConversation, setConversation } = useChatContext();
+  const conversationKey = 'text-to-audio';
   const [messages, setMessages] = useState<Message[]>([]);
+
+  useEffect(() => {
+    const savedMessage = getConversation(conversationKey);
+    if (savedMessage && savedMessage.length) {
+      setMessages(savedMessage as Message[]);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (messages.length > 0) {
+      setConversation(conversationKey, messages);
+    }
+  }, [messages])
 
   const handlePost = async (text: string, voice: string) => {
     setIsLoading(true);

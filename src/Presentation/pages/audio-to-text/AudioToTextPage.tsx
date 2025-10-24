@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GptMessages, MyMessage, TypingLoader, TextMessageBoxFile } from "../../components";
 import { audioToTextUseCase } from "../../../Core/use-cases";
+import { useChatContext } from "@/context/ChatProvider";
 
 
 interface Message {
@@ -8,11 +9,28 @@ interface Message {
   isGpt: boolean;
   audioFileName?: string;
 }
-
+const disclaimer = "El formato de audio debe ser .mp3 / .mp4";
 export const AudioToTextPage = () => {
 
   const [isloading, setIsLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
+  const conversationKey = 'audio-to-text';
+  const { getConversation, setConversation } = useChatContext();
+
+  useEffect(() => {
+    const savedMessage = getConversation(conversationKey);
+    if (savedMessage && savedMessage.length) {
+      setMessages(savedMessage as Message[]);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (messages.length > 0) {
+      setConversation(conversationKey, messages);
+    }
+  }, [messages]);
+
+
 
   const handlePost = async (text: string, audioFile: File) => {
     setIsLoading(true);
@@ -43,6 +61,7 @@ ${response.text}
   return (
     <div className="chat-container">
       <div className="chat-messages">
+        <span className="flex justify-center items-center">{`Atención: ${disclaimer}`}</span>
         <div className="grid grid-cols-12 gap-y-2">
           {/* Bienvenida */}
           <GptMessages text="Hola, sube tu audio y comenzare a convertirlo en texto" />
